@@ -2,7 +2,7 @@
 /**
  * Cookbook bootstrap.
  * This file controls which recipes are loaded. Comment out any `require` below
- * to disable that example. Each recipe is independent — you can enable just
+ * to disable that example. Each recipe is independent. You can enable just
  * one or all of them, in any combination.
  * All recipes register their Data Sources under the shared top-level admin
  * menu "DS Cookbook" so the WordPress sidebar stays tidy.
@@ -47,7 +47,7 @@ require __DIR__ . '/examples/04-table-relation/example.php';
  * Recipes that depend on a third-party plugin (WooCommerce, ACF, …) live
  * under `examples/<plugin>/` and guard themselves with a `class_exists()` /
  * `function_exists()` check at the top of the file. Simply `require` them
- * here — they will no-op silently if the plugin is inactive.
+ * here. They will no-op silently if the plugin is inactive.
  *
  * See "Adding recipes that depend on a third-party plugin" in readme.md.
  */

@@ -5,7 +5,7 @@ A collection of annotated code examples that show how to register custom
 
 Every folder under [`examples/`](./examples) is a self-contained recipe.
 Each folder has its own `readme.md` with a walkthrough and an `example.php`
-with the code. Read them top to bottom — each recipe builds on the
+with the code. Read them top to bottom. Each recipe builds on the
 concepts introduced by the previous one.
 
 ## Requirements
@@ -51,5 +51,5 @@ listing which plugin must be active.
 ## API reference
 
 See [`docs/api-reference.md`](./docs/api-reference.md) for a quick lookup of
-every class and helper used in the recipes — namespaces, signatures, and
+every class and helper used in the recipes: namespaces, signatures, and
 which recipe introduces each one.

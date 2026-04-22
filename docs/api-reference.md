@@ -4,7 +4,7 @@ A quick lookup of every class and helper that appears in the cookbook
 recipes. Each entry lists the namespace, a short description, and the
 signature you are most likely to use.
 
-Methods that return `self` in the listings are immutable — they return a
+Methods that return `self` in the listings are immutable. They return a
 cloned instance with the change applied.
 
 ---
@@ -77,8 +77,8 @@ $entry->set_capabilities(Capabilities $capabilities): self
 ## Facades (recommended entry points)
 
 The `Facade\*` classes are thin, static-method helpers that wrap the core
-constructors. They accept plain strings and handle table resolution for you —
-prefer them over building core objects manually.
+constructors. They accept plain strings and handle table resolution for you.
+Prefer them over building core objects manually.
 
 ### `ACA\DataSources\Facade\Table`
 
@@ -90,7 +90,7 @@ Facade\Table::from(string $table, ?string $identifier = null): Repository\Databa
 ```
 
 The returned `Table` exposes a `->filter()` method for hiding or keeping
-specific columns — see `Filter\Name` below.
+specific columns. See `Filter\Name` below.
 
 ### `ACA\DataSources\Facade\DataSource`
 
@@ -199,7 +199,7 @@ that column. Columns not declared still appear with default rendering.
 
 ### `ACA\DataSources\DataSource\ColumnLabelResolver\HumanReadableResolver`
 
-Turns raw column names into Title Case labels (`comment_author_email` →
+Turns raw column names into Title Case labels (`comment_author_email` becomes
 "Comment Author Email"). Plug into `Config\Columns::with_label_resolver()`.
 
 ```php

@@ -1,4 +1,4 @@
-# Recipe 02 — Human-Readable Labels & Typed Columns
+# Recipe 02: Human-Readable Labels & Typed Columns
 
 Two small improvements over Recipe 01:
 
@@ -11,13 +11,13 @@ Two small improvements over Recipe 01:
 
 ## What it demonstrates
 
-- `Config\Columns::create()` — the builder for column configuration.
-- `->with_label_resolver()` — controls how column labels are derived.
-- `->with_columns([...])` — overrides a subset of columns with typed
-  variants; the remaining columns still get default rendering.
-- `ColumnType\WordPressPostType` and `ColumnType\WordPressUserType` —
+- `Config\Columns::create()`: the builder for column configuration.
+- `->with_label_resolver()`: controls how column labels are derived.
+- `->with_columns([...])`: overrides a subset of columns with typed
+  variants. The remaining columns still get default rendering.
+- `ColumnType\WordPressPostType` and `ColumnType\WordPressUserType`:
   built-in column types that render linked post/user references.
-- `Repository\Database\Table\Resolver` — the same thing `Facade\Table`
+- `Repository\Database\Table\Resolver`: the same thing `Facade\Table`
   uses internally, shown here so you can see there is no magic.
 
 ## Key takeaway

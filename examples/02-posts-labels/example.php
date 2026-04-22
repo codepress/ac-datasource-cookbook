@@ -16,7 +16,7 @@ use ACA\DataSources\Repository\Database\Table\Resolver;
 use ACA\DataSources\Type\DataSourceId;
 
 add_action('acp/data-sources/register', static function (DataSourceRegistry $registry): void {
-    // `Resolver` is what `Facade\Table` uses internally — shown here without the facade.
+    // `Resolver` is what `Facade\Table` uses internally, shown here without the facade.
     $table = (new Resolver())->resolve('wp_comments');
 
     // Define custom column types for related columns

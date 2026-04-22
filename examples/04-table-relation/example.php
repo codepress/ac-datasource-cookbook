@@ -30,12 +30,12 @@ add_action('acp/data-sources/register', static function (DataSourceRegistry $reg
         $table,
         $config,
         new Facade\Relations([
-            // Joins on wp_comments.comment_post_ID → wp_posts.ID (the local primary key).
+            // Joins on wp_comments.comment_post_ID to wp_posts.ID (the local primary key).
             Facade\Relation\Table::has_one($comments, 'comment_post_ID'),
         ])
     );
 
     $registry->register(
-        Entry::create($posts)->set_submenu('04 — Post + Comment', 'ac-ds-cookbook')
+        Entry::create($posts)->set_submenu('04. Post + Comment', 'ac-ds-cookbook')
     );
 });

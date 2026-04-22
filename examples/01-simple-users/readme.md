@@ -10,7 +10,7 @@ with no custom configuration. Admin Columns will:
 
 ## What it demonstrates
 
-- The `acp/data-sources/register` action — the single entry point for
+- The `acp/data-sources/register` action: the single entry point for
   adding Data Sources.
 - The `Facade\Table::from()` helper that wraps table resolution.
 - Creating a `DataSource` with only an ID and a table.
