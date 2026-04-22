@@ -50,6 +50,6 @@ listing which plugin must be active.
 
 ## API reference
 
-See [`docs/api-reference.md`](./docs/api-reference.md) for a quick lookup
-of every class and helper used in the examples: namespaces, signatures,
-and which example introduces each one.
+See the [API reference](./docs/api-reference.md) for class and helper
+documentation, grouped by topic: registration, tables, columns, and
+relations.
