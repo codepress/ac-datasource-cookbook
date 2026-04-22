@@ -1,8 +1,8 @@
 # API Reference
 
 A quick lookup of every class and helper that appears in the cookbook
-recipes. Each entry lists the namespace, a short description, the signature
-you are most likely to use, and which recipe introduces it.
+recipes. Each entry lists the namespace, a short description, and the
+signature you are most likely to use.
 
 Methods that return `self` in the listings are immutable — they return a
 cloned instance with the change applied.
@@ -22,8 +22,6 @@ add_action('acp/data-sources/register', function (DataSourceRegistry $registry) 
 });
 ```
 
-Used in: **all recipes**.
-
 ---
 
 ## Core model
@@ -42,8 +40,6 @@ new DataSource(
 )
 ```
 
-Used in: recipe **01**, **02**, **04**.
-
 ### `ACA\DataSources\Type\DataSourceId`
 
 Value object that wraps the unique string identifier of a Data Source. The
@@ -54,8 +50,6 @@ starting with a letter).
 new DataSourceId('cookbook_users')
 ```
 
-Used in: recipe **01**, **02**.
-
 ### `ACA\DataSources\DataSourceRegistry`
 
 The registry passed into the `acp/data-sources/register` hook. Call
@@ -64,8 +58,6 @@ The registry passed into the `acp/data-sources/register` hook. Call
 ```php
 $registry->register(Entry $entry): void
 ```
-
-Used in: **all recipes**.
 
 ### `ACA\DataSources\DataSourceRegistry\Entry`
 
@@ -79,8 +71,6 @@ $entry->set_submenu(string $title, string $parent_slug, ?string $menu_title = nu
 $entry->set_group(AC\Type\Group $group): self
 $entry->set_capabilities(Capabilities $capabilities): self
 ```
-
-Used in: **all recipes**.
 
 ---
 
@@ -99,10 +89,8 @@ prefix automatically.
 Facade\Table::from(string $table, ?string $identifier = null): Repository\Database\Table
 ```
 
-The returned `Table` exposes a `->filter()` method used in recipe **03** to
-exclude columns.
-
-Used in: recipe **01**, **03**, **04**.
+The returned `Table` exposes a `->filter()` method for hiding or keeping
+specific columns — see `Filter\Name` below.
 
 ### `ACA\DataSources\Facade\DataSource`
 
@@ -117,8 +105,6 @@ Facade\DataSource::from(
     ?RelationFactoryCollection $relations = null
 ): DataSource
 ```
-
-Used in: recipe **04**.
 
 ### `ACA\DataSources\Facade\Entry`
 
@@ -147,8 +133,6 @@ new Facade\Relations([
 ])
 ```
 
-Used in: recipe **04**.
-
 ### `ACA\DataSources\Facade\Relation\Table`
 
 Joins two Data Sources on a foreign-key column. Use when the foreign table
@@ -167,8 +151,6 @@ Facade\Relation\Table::has_many(/* same args */): TableRelationFactory
 ```
 
 `$local_column` defaults to the primary key of the local table.
-
-Used in: recipe **04**.
 
 ### `ACA\DataSources\Facade\Relation\Attribute`
 
@@ -190,10 +172,10 @@ Facade\Relation\Attribute::has_many(/* same args */): AttributeRelationFactory
 
 Typical arguments for `wp_postmeta`:
 
-| Argument | Value |
-| --- | --- |
-| `$foreign_column` | `'post_id'` |
-| `$foreign_attribute` | `'meta_key'` |
+| Argument                | Value          |
+|-------------------------|----------------|
+| `$foreign_column`       | `'post_id'`    |
+| `$foreign_attribute`    | `'meta_key'`   |
 | `$foreign_value_column` | `'meta_value'` |
 
 ---
@@ -215,8 +197,6 @@ $config->with_identifier(Config\Identifier $identifier): self
 Any column declared via `with_columns()` overrides the auto-detected type for
 that column. Columns not declared still appear with default rendering.
 
-Used in: recipe **02**, **03**, **04**.
-
 ### `ACA\DataSources\DataSource\ColumnLabelResolver\HumanReadableResolver`
 
 Turns raw column names into Title Case labels (`comment_author_email` →
@@ -225,8 +205,6 @@ Turns raw column names into Title Case labels (`comment_author_email` →
 ```php
 new HumanReadableResolver()
 ```
-
-Used in: recipe **02**, **03**, **04**.
 
 ### `ACA\DataSources\Repository\Database\Table\Filter\Name`
 
@@ -239,12 +217,10 @@ new Name(array $column_names, ?int $mode = null)
 
 Modes:
 
-| Constant | Effect |
-| --- | --- |
-| `Name::INCLUDE` (default) | Keep only the listed columns. |
-| `Name::EXCLUDE` | Hide the listed columns; keep everything else. |
-
-Used in: recipe **03**, **04**.
+| Constant                  | Effect                                         |
+|---------------------------|------------------------------------------------|
+| `Name::INCLUDE` (default) | Keep only the listed columns.                  |
+| `Name::EXCLUDE`           | Hide the listed columns; keep everything else. |
 
 ### `ACA\DataSources\Repository\Database\Table\Resolver`
 
@@ -255,8 +231,6 @@ The underlying resolver used by `Facade\Table`. Useful when you want the raw
 (new Resolver())->resolve(string $table, ?string $identifier = null): Table
 ```
 
-Used in: recipe **02**.
-
 ---
 
 ## Column types
@@ -265,22 +239,22 @@ All column types live under `ACA\DataSources\DataSource\ColumnType`. Each type
 exposes a static `::for($column_name, …)` method that returns a
 `Config\Column` ready to drop into `Config\Columns::with_columns([...])`.
 
-| Type | `for()` signature | Purpose |
-| --- | --- | --- |
-| `TextType` | `for(string $name)` | Plain text. |
-| `NumberType` | `for(string $name)` | Numeric value. |
-| `BooleanType` | `for(string $name, ?ToggleOptions $options = null)` | True/false toggle. Supply `ToggleOptions` to map non-boolean stored values (`open`/`closed`, etc.). |
-| `DateTimeType` | `for(string $name, ?string $date_save_format = null)` | Date/time. `$date_save_format` describes how the value is stored (e.g. `'Y-m-d H:i:s'`). |
-| `EmailType` | `for(string $name)` | `mailto:` link. |
-| `UrlType` | `for(string $name)` | Clickable URL. |
-| `ImageType` | `for(string $name)` | Renders the stored value as an image. |
-| `ColorType` | `for(string $name)` | Colour swatch. |
-| `SelectColumnType` | `for(string $name, array $options = [], bool $is_multiple = false, bool $lock_options = false)` | Value-to-label map; `$options` is `['stored' => 'Label', …]`. |
-| `WordPressPostType` | `for(string $name)` | Links the stored post ID to the edit screen. |
-| `WordPressUserType` | `for(string $name)` | Renders the referenced user with avatar. |
-| `WordPressMediaType` | `for(string $name)` | Renders the referenced attachment. |
+| Type                 | `for()` signature                                                                               | Purpose                                                                                             |
+|----------------------|-------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| `TextType`           | `for(string $name)`                                                                             | Plain text.                                                                                         |
+| `NumberType`         | `for(string $name)`                                                                             | Numeric value.                                                                                      |
+| `BooleanType`        | `for(string $name, ?ToggleOptions $options = null)`                                             | True/false toggle. Supply `ToggleOptions` to map non-boolean stored values (`open`/`closed`, etc.). |
+| `DateTimeType`       | `for(string $name, ?string $date_save_format = null)`                                           | Date/time. `$date_save_format` describes how the value is stored (e.g. `'Y-m-d H:i:s'`).            |
+| `EmailType`          | `for(string $name)`                                                                             | `mailto:` link.                                                                                     |
+| `UrlType`            | `for(string $name)`                                                                             | Clickable URL.                                                                                      |
+| `ImageType`          | `for(string $name)`                                                                             | Renders the stored value as an image.                                                               |
+| `ColorType`          | `for(string $name)`                                                                             | Colour swatch.                                                                                      |
+| `SelectColumnType`   | `for(string $name, array $options = [], bool $is_multiple = false, bool $lock_options = false)` | Value-to-label map; `$options` is `['stored' => 'Label', …]`.                                       |
+| `WordPressPostType`  | `for(string $name)`                                                                             | Links the stored post ID to the edit screen.                                                        |
+| `WordPressUserType`  | `for(string $name)`                                                                             | Renders the referenced user with avatar.                                                            |
+| `WordPressMediaType` | `for(string $name)`                                                                             | Renders the referenced attachment.                                                                  |
 
-Example (from recipe 03):
+Example:
 
 ```php
 Config\Columns::create()->with_columns([
@@ -291,22 +265,3 @@ Config\Columns::create()->with_columns([
         ->with_label('Comment Status'),
 ]);
 ```
-
----
-
-## Free-core helpers
-
-### `AC\Type\ToggleOptions`
-
-Describes how a boolean column's stored values map to the on/off state used
-by the UI. Lives in the free Admin Columns plugin.
-
-```php
-ToggleOptions::create_from_values(string $disabled_value = '0', string $enabled_value = '1'): self
-ToggleOptions::create_from_array(array $options): self    // ['stored_off' => 'Off Label', 'stored_on' => 'On Label']
-```
-
-The first argument is the value treated as "off"; the second is the value
-treated as "on".
-
-Used in: recipe **03**.
