@@ -17,7 +17,7 @@ use ACA\DataSources\Repository\Database\Table\Filter;
 use ACA\DataSources\Type\DataSourceId;
 
 add_action('acp/data-sources/register', static function (DataSourceRegistry $registry): void {
-    // Register the foreign Data Source first, without a menu page. This is
+    // Step 1: Register the foreign Data Source first, without a menu page. This is
     // required for its columns to be exposed via the relation below.
     $post_columns = Config\Columns::create()
         ->with_column(ColumnType\TextType::for('post_title'))
@@ -35,15 +35,34 @@ add_action('acp/data-sources/register', static function (DataSourceRegistry $reg
 
     $registry->register(new Entry($post_data_source));
 
-    // Primary Data Source: comments. Each comment row references one post
-    // via `comment_post_ID` (the local foreign key to `wp_posts.ID`).
+    // Step 2: Register the comment meta table as a Data Source. Using the
+    // `Facade\DataSource::from()` shortcut when no custom columns are needed.
+    $comment_meta = Facade\DataSource::from('wp_commentmeta', 'related_comment_meta');
+
+    $registry->register(new Entry($comment_meta));
+
+    // Step 3: Register the primary table (Comments) and attach the other
+    // Data Sources as relations. Each comment row references one post via
+    // `comment_post_ID` (the local foreign key to `wp_posts.ID`).
     $comments = new DataSource(
         new DataSourceId('comments_with_related_posts'),
         Facade\Table::from('wp_comments'),
-        Config\Columns::create()->with_label_resolver(new HumanReadableResolver()),
+        Config\Columns::create()
+            ->with_label_resolver(new HumanReadableResolver()),
         new Facade\Relations([
-            // has_one(foreign_ds, foreign_column, local_column)
+            // Table relation: join one row from wp_posts per comment.
             Facade\Relation\Table::has_one($post_data_source, 'ID', 'comment_post_ID'),
+
+            // Attribute relation: exposes a configurable column where the
+            // user picks which `meta_key` to display. Can be added multiple
+            // times to show different keys (like the Custom Field column).
+            Facade\Relation\Attribute::has_one(
+                $comment_meta,
+                'comment_id',
+                'Comment Meta',
+                'meta_key',
+                'meta_value'
+            ),
         ])
     );
 
