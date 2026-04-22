@@ -1,0 +1,88 @@
+site_name: AC Datasource Cookbook
+site_description: Developer documentation for Admin Columns Pro Data Sources.
+site_author: Admin Columns
+
+# Update these once the repository is published.
+# repo_url: https://github.com/codepress/ac-datasource-cookbook
+# repo_name: codepress/ac-datasource-cookbook
+# edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      base_path:
+        - .
+        - docs
+      check_paths: true
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Getting started: getting-started.md
+  - Recipes:
+      - recipes/index.md
+      - 01 — Super Simple: recipes/01-super-simple.md
+      - 02 — Human-Readable Labels: recipes/02-human-readable.md
+      - 03 — Defined Columns: recipes/03-defined-columns.md
+      - 04 — Table Relation: recipes/04-table-relation.md
+  - API Reference:
+      - api/index.md
+      - The hook: api/hook.md
+      - Core model: api/core.md
+      - Facades: api/facades.md
+      - Column configuration: api/configuration.md
+      - Column types: api/column-types.md
+      - Free-core helpers: api/helpers.md
+
+extra:
+  generator: false
