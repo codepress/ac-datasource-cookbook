@@ -39,7 +39,7 @@ add_action('admin_menu', static function (): void {
  * Data Sources, start at the top and work your way down.
  */
 require __DIR__ . '/examples/01-simple-users/example.php';
-require __DIR__ . '/examples/02-posts-labels/example.php';
+require __DIR__ . '/examples/02-readable-labels/example.php';
 require __DIR__ . '/examples/03-defined-columns/example.php';
 require __DIR__ . '/examples/04-table-relation/example.php';
 

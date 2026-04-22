@@ -33,7 +33,7 @@ add_action('acp/data-sources/register', static function (DataSourceRegistry $reg
         ->with_label_resolver(new HumanReadableResolver());
 
     $table = Facade\Table::from('wp_posts')
-        ->filter(new Name(['ID', 'post_content', 'post_author', 'post_date', 'comment_status'], Name::INCLUDE));
+        ->filter(new Name(['ID', 'post_content', 'post_author', 'post_date', 'comment_status']));
 
     $data_source = new DataSource(
         new DataSourceId('example_posts_defined'),

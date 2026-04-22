@@ -37,6 +37,11 @@ add_action('acp/data-sources/register', static function (DataSourceRegistry $reg
     );
 
     $registry->register(
-        Entry::create($data_source)->set_submenu('02. Readable Column Labels', 'ac-ds-cookbook')
+        Entry::create($data_source)
+            ->set_submenu(
+                '02. Comments with readable labels',
+                'ac-ds-cookbook',
+                '02. Readable Column Labels'
+            )
     );
 });
