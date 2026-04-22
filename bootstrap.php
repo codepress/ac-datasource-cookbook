@@ -1,18 +1,16 @@
 <?php
 /**
  * Cookbook bootstrap.
- *
  * This file controls which recipes are loaded. Comment out any `require` below
  * to disable that example. Each recipe is independent — you can enable just
  * one or all of them, in any combination.
- *
  * All recipes register their Data Sources under the shared top-level admin
  * menu "DS Cookbook" so the WordPress sidebar stays tidy.
  */
 
 declare(strict_types=1);
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
     exit;
 }
 
@@ -24,8 +22,8 @@ if (!defined('ABSPATH')) {
  */
 add_action('admin_menu', static function (): void {
     add_menu_page(
-        'DS Cookbook',
-        'DS Cookbook',
+        'Datasources',
+        'Datasources',
         'manage_options',
         'ac-ds-cookbook',
         '__return_empty_string',
@@ -40,10 +38,10 @@ add_action('admin_menu', static function (): void {
  * The recipes are ordered from simplest to most advanced. If you are new to
  * Data Sources, start at the top and work your way down.
  */
-require __DIR__ . '/examples/01-super-simple.php';
-require __DIR__ . '/examples/02-human-readable.php';
-require __DIR__ . '/examples/03-defined-columns.php';
-require __DIR__ . '/examples/04-table-relation.php';
+require __DIR__ . '/examples/01-simple-users/example.php';
+require __DIR__ . '/examples/02-posts-labels/example.php';
+require __DIR__ . '/examples/03-defined-columns/example.php';
+require __DIR__ . '/examples/04-table-relation/example.php';
 
 /*
  * Recipes that depend on a third-party plugin (WooCommerce, ACF, …) live
