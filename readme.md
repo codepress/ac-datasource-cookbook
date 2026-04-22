@@ -46,3 +46,9 @@ Each recipe is independent. You can enable any combination.
 Some recipes require a specific plugin (for example WooCommerce). When that
 is the case, the recipe's header docblock starts with a `Requires:` line
 stating which plugin must be active.
+
+## API reference
+
+See [`docs/api-reference.md`](./docs/api-reference.md) for a quick lookup of
+every class and helper used in the recipes — namespaces, signatures, and
+which recipe introduces each one.
