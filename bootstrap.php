@@ -44,10 +44,8 @@ require __DIR__ . '/examples/03-defined-columns/example.php';
 require __DIR__ . '/examples/04-table-relation/example.php';
 
 /*
- * Recipes that depend on a third-party plugin (WooCommerce, ACF, …) live
- * under `examples/<plugin>/` and guard themselves with a `class_exists()` /
- * `function_exists()` check at the top of the file. Simply `require` them
- * here. They will no-op silently if the plugin is inactive.
- *
- * See "Adding recipes that depend on a third-party plugin" in readme.md.
+ * Examples that depend on a third-party plugin guard themselves with a
+ * `class_exists()` / `function_exists()` check at the top of the file, so
+ * they no-op silently when the plugin is inactive.
  */
+require __DIR__ . '/examples/05-wc-orders/example.php';

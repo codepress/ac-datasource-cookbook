@@ -42,11 +42,23 @@ Each example is independent. You can enable any combination.
 | 01 | [Simple Users](./examples/01-simple-users/)          | The minimum: register a table as a Data Source with no configuration.          |
 | 02 | [Posts Labels](./examples/02-posts-labels/)          | Human-readable column labels plus a couple of typed columns.                   |
 | 03 | [Defined Columns](./examples/03-defined-columns/)    | Declare columns explicitly and filter which columns are exposed.               |
-| 04 | [Table Relation](./examples/04-table-relation/)      | Join a second table into a Data Source via a `has_one` relation.               |
+| 04 | [Table Relation](./examples/04-table-relation/)      | Join tables into a Data Source via `has_one` Table and Attribute relations.    |
+| 05 | [WooCommerce Orders](./examples/05-wc-orders/)       | Build a custom Orders screen combining four WooCommerce tables.                |
 
 Some examples require a specific plugin (for instance WooCommerce). When
 that is the case, the example's `readme.md` has a **Requirements** section
 listing which plugin must be active.
+
+## WooCommerce examples
+
+WooCommerce stores data across many tables but only ships admin screens
+for a handful of them. Analytics lookups, line-item data, and order
+meta live in the database but have no dedicated dashboard. The
+WooCommerce examples show how to use Data Sources to fill those gaps by
+building custom admin tables on top of the WooCommerce schema.
+
+Start at Example 05 for an Orders screen that combines `wp_wc_orders`
+with its meta, analytics stats, and line-item lookup tables.
 
 ## API reference
 
